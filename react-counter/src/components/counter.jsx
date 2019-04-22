@@ -1,17 +1,18 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    count: 0,
-    tags: ["tag1", "tag2", "tag3"]
+    value: this.props.counter.value
+    //tags: ["tag1", "tag2", "tag3"]
   };
 
   render() {
-    const { tags } = this.state;
+    //const { tags } = this.state;
+    const { counter, onDelete } = this.props;
 
     return (
-      <Fragment>
-        <span style={{ fontSize: 30 }} className={this.getCountClasses()}>
+      <div>
+        <span style={{ fontSize: 20 }} className={this.getCountClasses()}>
           {this.formatCount()}
         </span>
         <button
@@ -20,7 +21,14 @@ class Counter extends Component {
         >
           Increment
         </button>
-        {tags.length === 0 ? (
+        <button
+          onClick={() => onDelete(counter.id)}
+          className="btn btn-danger sm-2"
+        >
+          Delete
+        </button>
+
+        {/*tags.length === 0 ? (
           <p>No items available</p>
         ) : (
           <ul>
@@ -28,24 +36,20 @@ class Counter extends Component {
               <li key={i}>{tag}</li>
             ))}
           </ul>
-        )}
-      </Fragment>
+            )*/}
+      </div>
     );
   }
 
-  handleIncrement = () => this.setState({ count: this.state.count + 1 });
+  handleIncrement = () => this.setState({ value: this.state.value + 1 });
 
   getCountClasses() {
-    const { count } = this.state;
     let classes = "badge m-2 badge-";
-    classes += count === 0 ? "warning" : "primary";
+    classes += this.state.value === 0 ? "warning" : "primary";
     return classes;
   }
 
-  formatCount() {
-    const { count } = this.state;
-    return count === 0 ? "Zero" : count;
-  }
+  formatCount = () => (this.state.value === 0 ? "Zero" : this.state.value);
 }
 
 export default Counter;
