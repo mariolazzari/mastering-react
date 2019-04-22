@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { getMovies } from "../services/fakeMovieService";
 
 class Movies extends Component {
@@ -6,18 +6,30 @@ class Movies extends Component {
     movies: getMovies()
   };
 
+  handleDelete = id => {
+    const movies = this.state.movies.filter(m => m._id !== id);
+    this.setState({ movies });
+  };
+
   render() {
     const { movies } = this.state;
+    const { length: count } = movies;
+
+    if (count === 0) {
+      return <p>No movies available.</p>;
+    }
 
     return (
-      <div>
+      <Fragment>
+        <p>Showing {count} movies</p>
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Rate</th>
+              <th>Title</th>
+              <th>Genre</th>
+              <th>Stock</th>
+              <th>Rate</th>
+              <th />
             </tr>
           </thead>
           <tbody>
@@ -27,11 +39,19 @@ class Movies extends Component {
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
+                <td>
+                  <button
+                    onClick={() => this.handleDelete(movie._id)}
+                    className="btn btn-danger btn-sm"
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
+      </Fragment>
     );
   }
 }
