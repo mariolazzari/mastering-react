@@ -14,7 +14,12 @@ class Counter extends Component {
         <span style={{ fontSize: 30 }} className={this.getCountClasses()}>
           {this.formatCount()}
         </span>
-        <button className="btn btn-secondary sm-2">Increment</button>
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary sm-2"
+        >
+          Increment
+        </button>
         {tags.length === 0 ? (
           <p>No items available</p>
         ) : (
@@ -28,6 +33,7 @@ class Counter extends Component {
     );
   }
 
+  handleIncrement = () => this.setState({ count: this.state.count + 1 });
   getCountClasses() {
     const { count } = this.state;
     let classes = "badge m-2 badge-";
