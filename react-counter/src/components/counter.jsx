@@ -34,6 +34,7 @@ class Counter extends Component {
   }
 
   handleIncrement = () => this.setState({ count: this.state.count + 1 });
+
   getCountClasses() {
     const { count } = this.state;
     let classes = "badge m-2 badge-";
