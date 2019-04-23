@@ -1,15 +1,16 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React, { Component, Fragment } from "react";
+import Navbar from "./components/navbar";
+import Counters from "./components/counters";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <Fragment>
+        <Navbar />
         <main className="container">
-          <h1>Main</h1>
+          <Counters />
         </main>
-      </div>
+      </Fragment>
     );
   }
 }
